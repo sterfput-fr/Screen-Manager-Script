@@ -323,20 +323,20 @@ function Set-DisplaySwitch {
     )
     
     switch ($Mode) {
-        "internal" { Start-Process "DisplaySwitch.exe" "/internal" }
-        "external" { Start-Process "DisplaySwitch.exe" "/external" }
-        "clone"    { Start-Process "DisplaySwitch.exe" "/clone" }
-        "extend"   { Start-Process "DisplaySwitch.exe" "/extend" }
+        "internal" { DisplaySwitch.exe /internal }
+        "external" { DisplaySwitch.exe /external }
+        "clone"    { DisplaySwitch.exe /clone }
+        "extend"   { DisplaySwitch.exe /extend }
     }
 }
 
-#Set-DisplaySwitch -Mode "external"
-#Set-ScreenResolution -Width 1920 -Height 1080
-#Set-ScreenRefreshRate -Frequency 60
-#Set-ScreenScaling -Scaling 2
+Set-DisplaySwitch -Mode "external"
+Set-ScreenResolution -Width 1920 -Height 1080
+Set-ScreenRefreshRate -Frequency 60
+Set-ScreenScaling -Scaling 2
 
-#Start-Sleep -Seconds 20
-#Set-DisplaySwitch -Mode "internal"
-#Set-ScreenResolution -Width 2560 -Height 1440
-#Set-ScreenRefreshRate -Frequency 144
-#Set-Scaling -Scaling 0
+Start-Sleep -Seconds 10
+Set-DisplaySwitch -Mode "internal"
+Set-ScreenResolution -Width 2560 -Height 1440
+Set-ScreenRefreshRate -Frequency 144
+Set-ScreenScaling -Scaling 0
