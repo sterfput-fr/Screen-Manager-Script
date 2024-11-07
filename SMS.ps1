@@ -136,7 +136,7 @@ function Set-ScreenScaling {
     .DESCRIPTION
     Uses the SystemParametersInfo Win32API to change the display scaling.
 
-    .PARAMETER scaling
+    .PARAMETER Scaling
     The scaling factor to set. Valid values are:
     0 : 100% (default)
     1 : 125%
@@ -144,9 +144,9 @@ function Set-ScreenScaling {
     3 : 175%
 
     .EXAMPLE
-    Set-ScreenScaling -scaling 2
+    Set-ScreenScaling -Scaling 2
     #>
-    param($scaling)
+    param($Scaling)
     $source = @'
     [DllImport("user32.dll", EntryPoint = "SystemParametersInfo")]
     public static extern bool SystemParametersInfo(
@@ -156,7 +156,7 @@ function Set-ScreenScaling {
         uint fWinIni);
 '@
     $apicall = Add-Type -MemberDefinition $source -Name WinAPICall -Namespace SystemParamInfo -PassThru
-    $apicall::SystemParametersInfo(0x009F, $scaling, $null, 1) | Out-Null
+    $apicall::SystemParametersInfo(0x009F, $Scaling, $null, 1) | Out-Null
 }
 
 function Set-ScreenRefreshRate {
@@ -314,15 +314,15 @@ function Set-DisplaySwitch {
     "extend"   : Extend the display across both internal and external displays.
 
     .EXAMPLE
-    Set-DisplaySwitch -mode "external"
+    Set-DisplaySwitch -Mode "external"
     #>
     param (
         [Parameter(Mandatory=$true)]
         [ValidateSet("internal", "external", "clone", "extend")]
-        [string] $mode
+        [string] $Mode
     )
     
-    switch ($mode) {
+    switch ($Mode) {
         "internal" { Start-Process "DisplaySwitch.exe" "/internal" }
         "external" { Start-Process "DisplaySwitch.exe" "/external" }
         "clone"    { Start-Process "DisplaySwitch.exe" "/clone" }
@@ -330,13 +330,13 @@ function Set-DisplaySwitch {
     }
 }
 
-#Set-DisplaySwitch -mode "external"
+#Set-DisplaySwitch -Mode "external"
 #Set-ScreenResolution -Width 1920 -Height 1080
 #Set-ScreenRefreshRate -Frequency 60
-#Set-ScreenScaling -scaling 2
+#Set-ScreenScaling -Scaling 2
 
 #Start-Sleep -Seconds 20
-#Set-DisplaySwitch -mode "internal"
+#Set-DisplaySwitch -Mode "internal"
 #Set-ScreenResolution -Width 2560 -Height 1440
 #Set-ScreenRefreshRate -Frequency 144
-#Set-Scaling -scaling 0
+#Set-Scaling -Scaling 0
